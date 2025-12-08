@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+dist/
+
+# IDE
+.idea/
+.vscode/
+# GET OFF MY LAWN
+*.swp
+*.swo
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
