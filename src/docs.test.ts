@@ -44,15 +44,15 @@ describe('getActionDocUrl', () => {
 });
 
 describe('formatActionWithLink', () => {
-  it('formats known service action as markdown link', () => {
+  it('formats known service action as monospace markdown link', () => {
     const result = formatActionWithLink('s3:GetObject');
     expect(result).toBe(
-      '[s3:GetObject](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazons3.html#amazons3-actions-as-permissions:~:text=GetObject)'
+      '[`s3:GetObject`](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazons3.html#amazons3-actions-as-permissions:~:text=GetObject)'
     );
   });
 
-  it('formats unknown service action as quoted string', () => {
+  it('formats unknown service action as monospace', () => {
     const result = formatActionWithLink('unknownservice:Action');
-    expect(result).toBe('"unknownservice:Action"');
+    expect(result).toBe('`unknownservice:Action`');
   });
 });

@@ -113,7 +113,7 @@ export function getActionDocUrl(action: string): string | null {
 export function formatActionWithLink(action: string): string {
   const url = getActionDocUrl(action);
   if (url) {
-    return `[${action}](${url})`;
+    return `[\`${action}\`](${url})`;
   }
-  return `"${action}"`;
+  return `\`${action}\``;
 }
