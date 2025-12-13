@@ -3,7 +3,7 @@ import * as github from '@actions/github';
 
 import type { ReviewComment, WildcardBlock } from './types.js';
 import { extractFromDiff } from './diff.js';
-import { groupIntoConsecutiveBlocks, formatComment } from './utils.js';
+import { groupIntoConsecutiveBlocks, formatComment, type FormatOptions } from './utils.js';
 import { expandIamAction } from './expand.js';
 
 const COMMENT_MARKER = '**🔍 IAM Wildcard Expansion**';
@@ -44,6 +44,7 @@ function createReviewComments(
   blocks: readonly WildcardBlock[],
   expandedActions: Map<string, string[]>,
   redundantActions: readonly string[],
+  collapseThreshold: number,
 ): ReviewComment[] {
   return blocks.flatMap((block) => {
     const originalActions: string[] = [];
@@ -63,10 +64,12 @@ function createReviewComments(
       a.toLowerCase().localeCompare(b.toLowerCase())
     );
 
+    const options: FormatOptions = { collapseThreshold, redundantActions };
+
     return {
       path: block.file,
       line: block.endLine,
-      body: formatComment(originalActions, uniqueExpanded, redundantActions),
+      body: formatComment(originalActions, uniqueExpanded, options),
     };
   });
 }
@@ -100,6 +103,7 @@ async function deleteExistingComments(
 async function run(): Promise<void> {
   try {
     const token = core.getInput('github-token', { required: true });
+    const collapseThreshold = parseInt(core.getInput('collapse-threshold') || '5', 10);
     const octokit = github.getOctokit(token);
     const { context } = github;
 
@@ -152,7 +156,7 @@ async function run(): Promise<void> {
       core.warning(`Found ${redundantActions.length} redundant action(s): ${redundantActions.join(', ')}`);
     }
 
-    const comments = createReviewComments(blocks, expandedActions, redundantActions);
+    const comments = createReviewComments(blocks, expandedActions, redundantActions, collapseThreshold);
     if (comments.length === 0) {
       core.info('No comments to post.');
       return;
