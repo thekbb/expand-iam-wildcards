@@ -51,11 +51,18 @@ export function groupIntoConsecutiveBlocks(matches: readonly WildcardMatch[]): W
   return blocks;
 }
 
+export interface FormatOptions {
+  readonly collapseThreshold?: number;
+  readonly redundantActions?: readonly string[];
+}
+
 export function formatComment(
   originalActions: readonly string[],
   expandedActions: readonly string[],
-  redundantActions?: readonly string[],
+  options: FormatOptions = {},
 ): string {
+  const { collapseThreshold = 5, redundantActions } = options;
+
   const header = originalActions.length === 1
     ? `\`${originalActions[0]}\` expands to ${expandedActions.length} action(s):`
     : `${originalActions.length} wildcard patterns expand to ${expandedActions.length} action(s):`;
@@ -68,17 +75,23 @@ export function formatComment(
     ? `\n\n**⚠️ Redundant actions detected:**\nThe following explicit actions are already covered by the wildcard pattern(s) above:\n${redundantActions.map((a) => `- \`${a}\``).join('\n')}`
     : '';
 
-  const actions = expandedActions.map((a) => `"${a}"`).join('\n');
+  const actionsList = expandedActions.map((a) => `"${a}"`).join('\n');
+
+  const actionsBlock = expandedActions.length > collapseThreshold
+    ? `<details>
+<summary>Click to expand</summary>
+
+\`\`\`
+${actionsList}
+\`\`\`
+</details>`
+    : `\`\`\`
+${actionsList}
+\`\`\``;
 
   return `**🔍 IAM Wildcard Expansion**
 
 ${header}${patterns}${warning}
 
-<details>
-<summary>Click to expand</summary>
-
-\`\`\`
-${actions}
-\`\`\`
-</details>`;
+${actionsBlock}`;
 }

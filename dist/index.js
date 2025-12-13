@@ -31737,7 +31737,8 @@ function groupIntoConsecutiveBlocks(matches) {
     blocks.push({ ...current, actions: [...current.actions] });
     return blocks;
 }
-function formatComment(originalActions, expandedActions, redundantActions) {
+function formatComment(originalActions, expandedActions, options = {}) {
+    const { collapseThreshold = 5, redundantActions } = options;
     const header = originalActions.length === 1
         ? `\`${originalActions[0]}\` expands to ${expandedActions.length} action(s):`
         : `${originalActions.length} wildcard patterns expand to ${expandedActions.length} action(s):`;
@@ -31747,18 +31748,23 @@ function formatComment(originalActions, expandedActions, redundantActions) {
     const warning = redundantActions && redundantActions.length > 0
         ? `\n\n**⚠️ Redundant actions detected:**\nThe following explicit actions are already covered by the wildcard pattern(s) above:\n${redundantActions.map((a) => `- \`${a}\``).join('\n')}`
         : '';
-    const actions = expandedActions.map((a) => `"${a}"`).join('\n');
+    const actionsList = expandedActions.map((a) => `"${a}"`).join('\n');
+    const actionsBlock = expandedActions.length > collapseThreshold
+        ? `<details>
+<summary>Click to expand</summary>
+
+\`\`\`
+${actionsList}
+\`\`\`
+</details>`
+        : `\`\`\`
+${actionsList}
+\`\`\``;
     return `**🔍 IAM Wildcard Expansion**
 
 ${header}${patterns}${warning}
 
-<details>
-<summary>Click to expand</summary>
-
-\`\`\`
-${actions}
-\`\`\`
-</details>`;
+${actionsBlock}`;
 }
 
 ;// CONCATENATED MODULE: ./src/diff.ts
@@ -51900,7 +51906,7 @@ function findRedundantActions(explicitActions, expandedActions) {
     }
     return explicitActions.filter((action) => allExpanded.has(action.toLowerCase()));
 }
-function createReviewComments(blocks, expandedActions, redundantActions) {
+function createReviewComments(blocks, expandedActions, redundantActions, collapseThreshold) {
     return blocks.flatMap((block) => {
         const originalActions = [];
         const allExpanded = [];
@@ -51914,10 +51920,11 @@ function createReviewComments(blocks, expandedActions, redundantActions) {
         if (allExpanded.length === 0)
             return [];
         const uniqueExpanded = [...new Set(allExpanded)].toSorted((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+        const options = { collapseThreshold, redundantActions };
         return {
             path: block.file,
             line: block.endLine,
-            body: formatComment(originalActions, uniqueExpanded, redundantActions),
+            body: formatComment(originalActions, uniqueExpanded, options),
         };
     });
 }
@@ -51936,6 +51943,7 @@ async function deleteExistingComments(octokit, owner, repo, pullNumber) {
 async function run() {
     try {
         const token = core.getInput('github-token', { required: true });
+        const collapseThreshold = parseInt(core.getInput('collapse-threshold') || '5', 10);
         const octokit = github.getOctokit(token);
         const { context } = github;
         if (!context.payload.pull_request) {
@@ -51977,7 +51985,7 @@ async function run() {
         if (redundantActions.length > 0) {
             core.warning(`Found ${redundantActions.length} redundant action(s): ${redundantActions.join(', ')}`);
         }
-        const comments = createReviewComments(blocks, expandedActions, redundantActions);
+        const comments = createReviewComments(blocks, expandedActions, redundantActions, collapseThreshold);
         if (comments.length === 0) {
             core.info('No comments to post.');
             return;

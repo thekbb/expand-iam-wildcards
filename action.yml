@@ -15,6 +15,10 @@ inputs:
     description: 'Glob patterns for files to scan (comma-separated)'
     required: false
     default: '**/*.json,**/*.yaml,**/*.yml,**/*.tf,**/*.ts,**/*.js'
+  collapse-threshold:
+    description: 'Number of expanded actions before collapsing into details element'
+    required: false
+    default: '5'
 
 runs:
   using: 'node20'

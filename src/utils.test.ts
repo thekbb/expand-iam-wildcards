@@ -224,7 +224,7 @@ describe('formatComment', () => {
     expect(result).toContain('`s3:Get*` expands to 2 action(s):');
     expect(result).toContain('"s3:GetObject"');
     expect(result).toContain('"s3:GetBucket"');
-    expect(result).toContain('<details>');
+    expect(result).not.toContain('<details>'); // Below threshold
   });
 
   it('formats multiple wildcard patterns', () => {
@@ -248,11 +248,33 @@ describe('formatComment', () => {
     }
   });
 
+  it('collapses when above threshold', () => {
+    const expanded = ['s3:Get1', 's3:Get2', 's3:Get3', 's3:Get4', 's3:Get5', 's3:Get6'];
+    const result = formatComment(['s3:Get*'], expanded);
+
+    expect(result).toContain('<details>');
+    expect(result).toContain('Click to expand');
+  });
+
+  it('does not collapse when at threshold', () => {
+    const expanded = ['s3:Get1', 's3:Get2', 's3:Get3', 's3:Get4', 's3:Get5'];
+    const result = formatComment(['s3:Get*'], expanded);
+
+    expect(result).not.toContain('<details>');
+  });
+
+  it('respects custom collapse threshold', () => {
+    const expanded = ['s3:Get1', 's3:Get2', 's3:Get3'];
+    const result = formatComment(['s3:Get*'], expanded, { collapseThreshold: 2 });
+
+    expect(result).toContain('<details>');
+  });
+
   it('shows redundant actions warning when provided', () => {
     const result = formatComment(
       ['s3:Get*'],
       ['s3:GetObject', 's3:GetBucket'],
-      ['s3:GetObject'],
+      { redundantActions: ['s3:GetObject'] },
     );
 
     expect(result).toContain('⚠️ Redundant actions detected');
@@ -263,7 +285,7 @@ describe('formatComment', () => {
     const result = formatComment(
       ['s3:Get*'],
       ['s3:GetObject', 's3:GetBucket'],
-      ['s3:GetObject', 's3:GetBucket'],
+      { redundantActions: ['s3:GetObject', 's3:GetBucket'] },
     );
 
     expect(result).toContain('⚠️ Redundant actions detected');
@@ -279,7 +301,7 @@ describe('formatComment', () => {
   });
 
   it('does not show warning when redundant actions is empty array', () => {
-    const result = formatComment(['s3:Get*'], ['s3:GetObject'], []);
+    const result = formatComment(['s3:Get*'], ['s3:GetObject'], { redundantActions: [] });
 
     expect(result).not.toContain('⚠️');
     expect(result).not.toContain('Redundant');

@@ -243,6 +243,7 @@ jobs:
 |------|-------------|----------|---------|
 | `github-token` | GitHub token for API access | No | `${{ github.token }}` |
 | `file-patterns` | Glob patterns for files to scan (comma-separated) | No | `**/*.json,**/*.yaml,**/*.yml,**/*.tf,**/*.ts,**/*.js` |
+| `collapse-threshold` | Number of expanded actions before collapsing into `<details>` | No | `5` |
 
 ## Supported File Types
 
