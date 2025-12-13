@@ -219,16 +219,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Expand IAM Wildcards
-        uses: your-username/expand-iam-wildcards@v1
+        uses: thekbb/expand-iam-wildcards@v1
+```
+
+### Terraform Only
+
+To scan only Terraform files:
+
+```yaml
+jobs:
+  expand-wildcards:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Expand IAM Wildcards
+        uses: thekbb/expand-iam-wildcards@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          file-patterns: '**/*.tf'
 ```
 
 ## Inputs
 
 | Input | Description | Required | Default |
 |------|-------------|----------|---------|
-| `github-token` | GitHub token for API access | Yes | `${{ github.token }}` |
+| `github-token` | GitHub token for API access | No | `${{ github.token }}` |
 | `file-patterns` | Glob patterns for files to scan (comma-separated) | No | `**/*.json,**/*.yaml,**/*.yml,**/*.tf,**/*.ts,**/*.js` |
 
 ## Supported File Types
@@ -251,7 +264,7 @@ The action scans the following file types by default:
 
 ### Prerequisites
 
-- Node.js 22+
+- Node.js 20+
 - npm
 
 ### Setup
