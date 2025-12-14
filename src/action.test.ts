@@ -185,6 +185,18 @@ describe('processFiles', () => {
     expect(result.stats.wildcardsFound).toBe(0);
   });
 
+  it('returns empty result when wildcards found but none expand', () => {
+    const files: PullRequestFile[] = [
+      { filename: 'policy.tf', patch: makePatch(['"unknownservice:Get*"']) },
+    ];
+
+    const result = processFiles(files, [], 5);
+
+    expect(result.comments).toEqual([]);
+    expect(result.stats.wildcardsFound).toBe(1);
+    expect(result.stats.actionsExpanded).toBe(0);
+  });
+
   it('processes files with wildcards and creates comments', () => {
     const files: PullRequestFile[] = [
       { filename: 'policy.tf', patch: makePatch(['"s3:Get*"']) },
