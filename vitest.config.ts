@@ -6,6 +6,8 @@ export default defineConfig({
     include: ['src/**/*.test.ts'],
     pool: 'forks',
     coverage: {
+      reporter: ['text', 'lcov'],
+      reportsDirectory: './coverage',
       provider: 'v8',
       include: ['src/**/*.ts'],
       exclude: ['src/index.ts', 'src/**/*.test.ts'],

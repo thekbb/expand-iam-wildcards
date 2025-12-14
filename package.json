@@ -37,6 +37,7 @@
     "@types/minimatch": "^5.1.2",
     "@types/node": "~20.17.12",
     "@vercel/ncc": "~0.38.1",
+    "@vitest/coverage-v8": "^4.0.15",
     "eslint": "^9.39.2",
     "tsx": "~4.21.0",
     "typescript": "~5.3.2",
