@@ -19,9 +19,8 @@ describe('expandWildcards', () => {
     const result = expandWildcards(['s3:Get*']);
     expect(result.size).toBeGreaterThan(0);
     expect(result.has('s3:Get*')).toBe(true);
-    const expanded = result.get('s3:Get*');
-    expect(expanded).toBeDefined();
-    expect(expanded!.length).toBeGreaterThan(1);
+    const expanded = result.get('s3:Get*') ?? [];
+    expect(expanded.length).toBeGreaterThan(1);
   });
 
   it('does not include actions that do not expand', () => {
