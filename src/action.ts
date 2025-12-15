@@ -2,7 +2,7 @@ import type { PullRequestFile, ReviewComment, WildcardBlock } from './types.js';
 import { extractFromDiff } from './diff.js';
 import { groupIntoConsecutiveBlocks, formatComment, type FormatOptions } from './utils.js';
 import { matchesPatterns } from './patterns.js';
-import {expandIamActions} from "@cloud-copilot/iam-expand";
+import { expandIamActions } from "@cloud-copilot/iam-expand";
 
 export const COMMENT_MARKER = '**IAM Wildcard Expansion**';
 
