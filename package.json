@@ -9,7 +9,7 @@
     "node": "^20.0.0 || ^22.0.0 || >=24.0.0"
   },
   "scripts": {
-    "build": "ncc build src/index.ts -o dist --no-source-map-register --license licenses.txt && rm -f dist/licenses.txt dist/package.json && cp -r node_modules/@cloud-copilot/iam-data/data .",
+    "build": "ncc build src/index.ts -o dist --no-source-map-register --license licenses.txt && rm -f dist/licenses.txt dist/package.json && cp -r node_modules/@cloud-copilot/iam-data/data dist/",
     "lint": "eslint .",
     "lint:md": "markdownlint '**/*.md' --ignore node_modules",
     "typecheck": "tsc --noEmit",
