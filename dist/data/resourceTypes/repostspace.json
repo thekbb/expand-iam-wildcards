@@ -1,9 +1,0 @@
-{
-  "space": {
-    "key": "space",
-    "arn": "arn:${Partition}:repostspace:${Region}:${Account}:space/${ResourceId}",
-    "conditionKeys": [
-      "aws:ResourceTag/${TagKey}"
-    ]
-  }
-}

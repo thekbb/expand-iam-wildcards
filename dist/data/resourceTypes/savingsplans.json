@@ -1,9 +1,0 @@
-{
-  "savingsplan": {
-    "key": "savingsplan",
-    "arn": "arn:${Partition}:savingsplans::${Account}:savingsplan/${ResourceId}",
-    "conditionKeys": [
-      "aws:ResourceTag/${TagKey}"
-    ]
-  }
-}

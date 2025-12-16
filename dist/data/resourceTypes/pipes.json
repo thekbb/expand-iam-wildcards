@@ -1,9 +1,0 @@
-{
-  "pipe": {
-    "key": "pipe",
-    "arn": "arn:${Partition}:pipes:${Region}:${Account}:pipe/${Name}",
-    "conditionKeys": [
-      "aws:ResourceTag/${TagKey}"
-    ]
-  }
-}

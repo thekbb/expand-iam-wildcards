@@ -1,9 +1,0 @@
-{
-  "workflow": {
-    "key": "Workflow",
-    "arn": "arn:${Partition}:airflow-serverless:${Region}:${Account}:workflow/${WorkflowId}",
-    "conditionKeys": [
-      "aws:ResourceTag/${TagKey}"
-    ]
-  }
-}

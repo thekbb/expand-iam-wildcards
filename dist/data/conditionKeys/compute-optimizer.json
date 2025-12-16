@@ -1,7 +1,0 @@
-{
-  "compute-optimizer:resourcetype": {
-    "key": "compute-optimizer:ResourceType",
-    "description": "Filters access by the resource type",
-    "type": "String"
-  }
-}

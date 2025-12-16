@@ -1,9 +1,0 @@
-{
-  "organization": {
-    "key": "organization",
-    "arn": "arn:${Partition}:workmail:${Region}:${Account}:organization/${ResourceId}",
-    "conditionKeys": [
-      "aws:ResourceTag/${TagKey}"
-    ]
-  }
-}

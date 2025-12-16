@@ -1,6 +1,0 @@
-{
-  "project": {
-    "key": "project",
-    "arn": "arn:${Partition}:bedrock-mantle:${Region}:${Account}:project/${ResourceId}"
-  }
-}

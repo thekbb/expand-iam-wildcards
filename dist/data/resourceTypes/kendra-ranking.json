@@ -1,9 +1,0 @@
-{
-  "rescore-execution-plan": {
-    "key": "rescore-execution-plan",
-    "arn": "arn:${Partition}:kendra-ranking:${Region}:${Account}:rescore-execution-plan/${RescoreExecutionPlanId}",
-    "conditionKeys": [
-      "aws:ResourceTag/${TagKey}"
-    ]
-  }
-}

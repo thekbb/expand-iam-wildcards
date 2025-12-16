@@ -1,6 +1,0 @@
-{
-  "subscription": {
-    "key": "subscription",
-    "arn": "arn:${Partition}:pricingplanmanager::${Account}:subscription/${SubscriptionId}"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "application": {
-    "key": "Application",
-    "arn": "arn:${Partition}:sso::${AccountId}:application/${InstanceId}/${ApplicationId}"
-  }
-}

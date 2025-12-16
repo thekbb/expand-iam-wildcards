@@ -1,6 +1,0 @@
-{
-  "key-value-store": {
-    "key": "key-value-store",
-    "arn": "arn:${Partition}:cloudfront::${Account}:key-value-store/${ResourceId}"
-  }
-}

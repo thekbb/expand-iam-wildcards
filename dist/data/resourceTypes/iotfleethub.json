@@ -1,9 +1,0 @@
-{
-  "application": {
-    "key": "application",
-    "arn": "arn:${Partition}:iotfleethub:${Region}:${Account}:application/${ApplicationId}",
-    "conditionKeys": [
-      "aws:ResourceTag/${TagKey}"
-    ]
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "notificationrule": {
-    "key": "notificationrule",
-    "arn": "arn:${Partition}:codestar-notifications:${Region}:${Account}:notificationrule/${NotificationRuleId}",
-    "conditionKeys": [
-      "aws:ResourceTag/${TagKey}"
-    ]
-  }
-}

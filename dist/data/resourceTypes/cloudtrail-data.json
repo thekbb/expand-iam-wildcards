@@ -1,9 +1,0 @@
-{
-  "channel": {
-    "key": "channel",
-    "arn": "arn:${Partition}:cloudtrail:${Region}:${Account}:channel/${ChannelId}",
-    "conditionKeys": [
-      "aws:ResourceTag/${TagKey}"
-    ]
-  }
-}

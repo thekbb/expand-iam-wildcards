@@ -1,6 +1,0 @@
-{
-  "quota": {
-    "key": "quota",
-    "arn": "arn:${Partition}:servicequotas:${Region}:${Account}:${ServiceCode}/${QuotaCode}"
-  }
-}

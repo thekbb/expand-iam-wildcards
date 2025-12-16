@@ -1,9 +1,0 @@
-{
-  "workspace": {
-    "key": "workspace",
-    "arn": "arn:${Partition}:grafana:${Region}:${Account}:/workspaces/${ResourceId}",
-    "conditionKeys": [
-      "aws:ResourceTag/${TagKey}"
-    ]
-  }
-}

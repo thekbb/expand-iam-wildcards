@@ -1,6 +1,0 @@
-{
-  "domain": {
-    "key": "domain",
-    "arn": "arn:${Partition}:sdb:${Region}:${Account}:domain/${DomainName}"
-  }
-}

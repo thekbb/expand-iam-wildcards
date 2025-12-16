@@ -1,6 +1,0 @@
-{
-  "permission": {
-    "key": "permission",
-    "arn": "arn:${Partition}:iq-permission:${Region}::permission/${PermissionRequestId}"
-  }
-}

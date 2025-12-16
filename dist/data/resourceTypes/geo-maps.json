@@ -1,6 +1,0 @@
-{
-  "provider": {
-    "key": "provider",
-    "arn": "arn:${Partition}:geo-maps:${Region}::provider/default"
-  }
-}

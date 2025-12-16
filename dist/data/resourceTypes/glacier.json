@@ -1,6 +1,0 @@
-{
-  "vault": {
-    "key": "vault",
-    "arn": "arn:${Partition}:glacier:${Region}:${Account}:vaults/${VaultName}"
-  }
-}

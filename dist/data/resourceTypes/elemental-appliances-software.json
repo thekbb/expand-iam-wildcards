@@ -1,6 +1,0 @@
-{
-  "quote": {
-    "key": "quote",
-    "arn": "arn:${Partition}:elemental-appliances-software:${Region}:${Account}:quote/${ResourceId}"
-  }
-}

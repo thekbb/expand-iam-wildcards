@@ -1,7 +1,0 @@
-{
-  "user-subscriptions:createforself": {
-    "key": "user-subscriptions:CreateForSelf",
-    "description": "Filters access by only allowing creation of User subscription Claims for the caller",
-    "type": "Bool"
-  }
-}

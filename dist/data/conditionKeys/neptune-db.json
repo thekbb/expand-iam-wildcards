@@ -1,7 +1,0 @@
-{
-  "neptune-db:querylanguage": {
-    "key": "neptune-db:QueryLanguage",
-    "description": "Filters access by graph model",
-    "type": "String"
-  }
-}

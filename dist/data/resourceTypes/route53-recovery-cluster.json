@@ -1,6 +1,0 @@
-{
-  "routingcontrol": {
-    "key": "routingcontrol",
-    "arn": "arn:${Partition}:route53-recovery-control::${Account}:controlpanel/${ControlPanelId}/routingcontrol/${RoutingControlId}"
-  }
-}
