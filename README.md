@@ -43,13 +43,14 @@ The action posts an inline comment:
 
 > **IAM Wildcard Expansion**
 >
-> `s3:Get*Tagging` expands to 5 action(s):
+> `s3:Get*Tagging` expands to 5
+> [`s3`](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazons3.html) actions:
 >
-> 1. [`s3:getbuckettagging`](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazons3.html)
-> 2. [`s3:getjobtagging`](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazons3.html)
-> 3. [`s3:getobjecttagging`](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazons3.html)
-> 4. [`s3:getobjectversiontagging`](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazons3.html)
-> 5. [`s3:getstoragelensconfigurationtagging`](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazons3.html)
+> 1. [`s3:GetBucketTagging`](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html)
+> 2. [`s3:GetJobTagging`](https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_GetJobTagging.html)
+> 3. [`s3:GetObjectTagging`](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html)
+> 4. [`s3:GetObjectVersionTagging`](https://docs.aws.amazon.com/AmazonS3/latest/userguide/setting-repl-config-perm-overview.html)
+> 5. [`s3:GetStorageLensConfigurationTagging`](https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_GetStorageLensConfigurationTagging.html)
 
 Consecutive wildcards are grouped into a single comment. Expanded actions link to AWS documentation.
 
