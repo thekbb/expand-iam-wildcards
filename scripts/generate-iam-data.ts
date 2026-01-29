@@ -10,20 +10,16 @@ const actionsDir = join(
   'node_modules/@cloud-copilot/iam-data/data/actions'
 );
 
-const allActions: string[] = [];
+const allActions: string[] = readdirSync(actionsDir)
+    .filter((file) => file.endsWith('.json'))
+    .flatMap((file) => {
+      const serviceName = file.replace('.json', '');
+      const data = JSON.parse(readFileSync(join(actionsDir, file), 'utf-8'));
 
-for (const file of readdirSync(actionsDir)) {
-  if (!file.endsWith('.json')) continue;
-
-  const serviceName = file.replace('.json', '');
-  const data = JSON.parse(readFileSync(join(actionsDir, file), 'utf-8'));
-
-  for (const action of Object.keys(data)) {
-    allActions.push(`${serviceName}:${action}`);
-  }
-}
-
-allActions.sort();
+      return Object.keys(data)
+          .map((action) => `${serviceName}:${action}`);
+    })
+    .sort();
 
 const output = `// Auto-generated - do not edit
 // Run: npm run generate-iam-data
